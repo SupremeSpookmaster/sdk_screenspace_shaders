@@ -1,0 +1,77 @@
+screenspace_general
+{
+	//Green Box
+	$c0_x .5		//X Position
+	$c0_y .9		//Y Position
+	$c0_z .2		//X Scale
+	$c0_w .02		//Y Scale
+
+	//Blue Box
+	$c1_x .5		//X Position
+	$c1_y .925		//Y Position
+	$c1_z .2		//X Scale
+	$c1_w .02		//Y Scale
+
+	//Red Box
+	$c2_x .5		//X Position
+	$c2_y .95		//Y Position
+	$c2_z .2		//X Scale
+	$c2_w .02		//Y Scale
+
+	//Fills:
+	$c3_x 0.0		//Green Fill
+	$c3_y 0.0		//Blue Fill
+	$c3_z 0.0		//Red Fill
+
+	$pixshader "test_bars_ps20"
+
+	$basetexture "_rt_FullFrameFB"
+	$texture1    ""
+	$texture2    ""
+	$texture3    ""
+
+	$x360appchooser 1
+	$ignorez        1
+	$fix_fb         32768
+	"<dx90"
+	{
+		$no_draw 1
+	}
+		
+	$copyalpha                 1
+	$alpha_blend_color_overlay 0
+	$alpha_blend               0
+	$linearwrite               0
+	$linearread_basetexture    0
+	$linearread_texture1       0
+	$linearread_texture2       0
+	$linearread_texture3       0
+	
+	Proxies
+	{
+		Sine	//Green Box
+		{
+			sineperiod		1.0
+			sinemin			0.0
+			sinemax			1.0
+			timeoffset		0.0
+			resultVar		$c3_x
+		}
+		Sine	//Blue Box
+		{
+			sineperiod		2.0
+			sinemin			0.0
+			sinemax			1.0
+			timeoffset		0.0
+			resultVar		$c3_y
+		}
+		Sine	//Red Box
+		{
+			sineperiod		3.0
+			sinemin			0.0
+			sinemax			1.0
+			timeoffset		0.0
+			resultVar		$c3_z
+		}
+	}
+}

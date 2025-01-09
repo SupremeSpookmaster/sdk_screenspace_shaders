@@ -14,3 +14,8 @@ example_spin_ps2x.hlsl
 example_depth_ps2x.hlsl
 example_chromaticaberration_ps2x.hlsl
 example_sdf_ps2x.hlsl
+velocity_based_color_ps2x.hlsl
+drunk_migraine_ps2x.hlsl
+earthquake_fade_ps2x.hlsl
+obnoxious_tiktok_edit_ps2x.hlsl
+test_bars_ps2x.hlsl

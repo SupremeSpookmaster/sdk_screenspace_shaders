@@ -1,0 +1,307 @@
+screenspace_general
+{
+
+	//the following 3 parameters should be set by the user and are not/cannot be read automatically
+	//seconds per tick for physics
+	$c1_y	  0.015
+	//these two parameters are not used in the calculation currently - it is assumed that the player has enough acceleration and speed that 90 degree turns are optimal
+	$sv_airaccelerate 150.0
+	$groundspeed 300.0
+	//max speed gain per tick - always 30 unless player is using mantreads while blast jumping or has similar attributes active
+	$c1_w	  30.0
+
+	//box positioning  x y xsize ysize
+	$c3_x .5
+	$c3_y .9
+	$c3_z .2
+	$c3_w .02
+
+	//note - the per-frame position data that comes through is pretty noisy - we average over 12 frames to get a cleaner result
+
+
+		$pixshader "temp\958013113_ps20"
+
+	$basetexture "_rt_FullFrameFB"
+	$texture1    ""
+	$texture2    ""
+	$texture3    ""
+
+	$x360appchooser 1
+	$ignorez        1
+	$fix_fb         32768
+	"<dx90"
+	{
+		$no_draw 1
+	}
+		
+	$copyalpha                 1
+	$alpha_blend_color_overlay 0
+	$alpha_blend               0
+	$linearwrite               0
+	$linearread_basetexture    0
+	$linearread_texture1       0
+	$linearread_texture2       0
+	$linearread_texture3       0
+	$pos "[0 0 0]"
+	$posprev "[0 0 0]"
+	$posdiff "[0 0 0]"
+	$t1	  0.0
+	$t2	  0.0
+	$t3	  0.0
+	$t4	  0.0
+	$t5	  0.0
+	$t6	  0.0
+	$t7	  0.0
+	$t8	  0.0
+	$t9	  0.0
+	$t10	  0.0
+	$t11	  0.0
+	$t12	  0.0
+	$t13	  0.0
+	
+	//xyz vel individually
+	$c0_x     0.0  
+	$c0_y     0.0
+	$c0_z     0.0
+
+	$v1	  "[0 0 0]"
+	$v2	  "[0 0 0]"
+	$v3	  "[0 0 0]"
+	$v4	  "[0 0 0]"
+	$v5	  "[0 0 0]"
+	$v6	  "[0 0 0]"
+	$v7	  "[0 0 0]"
+	$v8	  "[0 0 0]"
+	$v9	  "[0 0 0]"
+	$v10	  "[0 0 0]"
+	$v11	  "[0 0 0]"
+	$v12	  "[0 0 0]"
+	$v13	  "[0 0 0]"
+	//xyz previous tick velocity
+	$c2_x     0.0
+	$c2_y     0.0
+	$c2_z     0.0
+	//delta time
+	$c1_x	  0.0
+	$scratch 0.0
+	//airaccel per tick
+	$c1_z	  0.0
+	$zero 0
+	
+	Proxies
+	{
+		Multiply
+		{
+			srcVar1			$sv_airaccelerate
+			srcVar2			$groundspeed
+			resultVar		$scratch
+		}
+		Multiply
+		{
+			srcVar1			$scratch
+			srcVar2			$c1_y
+			resultVar		$c1_z
+		}
+
+
+		Equals
+		{
+			srcVar1			$fix_fb
+			resultVar		$flags2
+		}
+		Equals
+		{
+			srcVar1			$t12
+			resultVar		$t13
+		}
+		Equals
+		{
+			srcVar1			$t11
+			resultVar		$t12
+		}
+		Equals
+		{
+			srcVar1			$t10
+			resultVar		$t11
+		}
+		Equals
+		{
+			srcVar1			$t9
+			resultVar		$t10
+		}
+		Equals
+		{
+			srcVar1			$t8
+			resultVar		$t9
+		}
+		Equals
+		{
+			srcVar1			$t7
+			resultVar		$t8
+		}
+		Equals
+		{
+			srcVar1			$t6
+			resultVar		$t7
+		}
+		Equals
+		{
+			srcVar1			$t5
+			resultVar		$t6
+		}
+		Equals
+		{
+			srcVar1			$t4
+			resultVar		$t5
+		}
+		Equals
+		{
+			srcVar1			$t3
+			resultVar		$t4
+		}
+		Equals
+		{
+			srcVar1			$t2
+			resultVar		$t3
+		}
+		Equals
+		{
+			srcVar1			$t1
+			resultVar		$t2
+		}
+		Equals
+		{
+			srcVar1			$v12
+			resultVar		$v13
+		}
+		Equals
+		{
+			srcVar1			$v11
+			resultVar		$v12
+		}
+		Equals
+		{
+			srcVar1			$v10
+			resultVar		$v11
+		}
+		Equals
+		{
+			srcVar1			$v9
+			resultVar		$v10
+		}
+		Equals
+		{
+			srcVar1			$v8
+			resultVar		$v9
+		}
+		Equals
+		{
+			srcVar1			$v7
+			resultVar		$v8
+		}
+		Equals
+		{
+			srcVar1			$v6
+			resultVar		$v7
+		}
+		Equals
+		{
+			srcVar1			$v5
+			resultVar		$v6
+		}
+		Equals
+		{
+			srcVar1			$v4
+			resultVar		$v5
+		}
+		Equals
+		{
+			srcVar1			$v3
+			resultVar		$v4
+		}
+		Equals
+		{
+			srcVar1			$v2
+			resultVar		$v3
+		}
+		Equals
+		{
+			srcVar1			$posdiff
+			resultVar		$v2
+		}
+		Equals
+		{
+			srcVar1			$pos
+			resultVar		$posprev
+		}
+		PlayerPosition
+		{
+			scale			200
+
+			resultVar		$pos
+		} 
+		Subtract
+		{
+			srcVar1			$pos
+			srcVar2			$posprev
+			resultVar		$posdiff
+		}
+      		  //Split the 3d vector for further use
+        	Clamp
+        	{
+            		srcVar1                      $zero
+           	 	min                         "$posdiff[0]"
+            		max                         "$posdiff[0]"
+            		resultVar                    $c0_x
+        	}
+        
+        	Clamp
+        	{
+            		srcVar1                      $zero
+            		min                         "$posdiff[1]"
+            		max                         "$posdiff[1]"
+            		resultVar                    $c0_y
+        	}
+        
+        	Clamp
+        	{
+            		srcVar1                      $zero
+            		min                         "$posdiff[2]"
+            		max                         "$posdiff[2]"
+            		resultVar                    $c0_z
+        	}
+        	Clamp
+        	{
+            		srcVar1                      $zero
+           	 	min                         "$v13[0]"
+            		max                         "$v13[0]"
+            		resultVar                    $c2_x
+        	}
+        
+        	Clamp
+        	{
+            		srcVar1                      $zero
+            		min                         "$v13[1]"
+            		max                         "$v13[1]"
+            		resultVar                    $c2_y
+        	}
+        
+        	Clamp
+        	{
+            		srcVar1                      $zero
+            		min                         "$v13[2]"
+            		max                         "$v3[2]"
+            		resultVar                    $c2_z
+        	}
+		CurrentTime
+		{
+			resultVar		$t1
+		}
+		Subtract
+		{
+			srcVar1			$t1
+			srcVar2			$t13
+			resultVar		$c1_x
+		}
+	}
+}
