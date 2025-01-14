@@ -19,3 +19,5 @@ drunk_migraine_ps2x.hlsl
 earthquake_fade_ps2x.hlsl
 obnoxious_tiktok_edit_ps2x.hlsl
 test_bars_ps2x.hlsl
+test_tfui_ps2x.hlsl
+tf_custom_ui_ps2x.hlsl

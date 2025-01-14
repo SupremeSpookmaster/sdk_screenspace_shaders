@@ -57,7 +57,7 @@ bool IsInColorZone(float2 uv, bool green, bool blue, bool red, inout float barLo
 	float2 barCenter = float2(.002, .02);
 
 	barLocalPos = (uv.x - barPos.x) / barSize.x + 0.5;
-	return ContainsSquare(uv,barPos,barSize);
+	return ContainsSquare(uv, barPos, barSize);
 }
 
 float4 main( PS_INPUT i ) : COLOR
